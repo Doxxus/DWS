@@ -15,15 +15,14 @@ app.use(express.json());
 const sqlConfig: sql.config = {
   user: "your_username",
   password: "your_password",
-  server: "localhost", // or your server name
+  server: "localhost",
   database: "your_database",
   options: {
-    encrypt: true, // required for Azure
-    trustServerCertificate: true, // change to false for production with valid certs
+    encrypt: true, 
+    trustServerCertificate: true,
   },
 };
 
-// Express route to execute a stored procedure
 app.post("/getallmixes", async (req: Request, res: Response) => {
   const { param1, param2 } = req.body;
 
@@ -38,7 +37,7 @@ app.post("/getallmixes", async (req: Request, res: Response) => {
 
     res.json({
       success: true,
-      data: result.recordset, // return rows
+      data: result.recordset,
     });
   } catch (err) {
     console.error("Error executing stored procedure:", err);
@@ -48,7 +47,7 @@ app.post("/getallmixes", async (req: Request, res: Response) => {
     });
   } finally {
     if (pool) {
-      await pool.close(); // always close the pool
+      await pool.close();
     }
   }
 });
